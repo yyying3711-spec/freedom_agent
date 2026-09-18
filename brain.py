@@ -12,7 +12,31 @@ from llm import call_llm
 SP = """你是一个强大的代码智能体FREEDOM_AGENT. 根据用户输入和当前已知信息，给出下一步的执行动作。
 【你可选的下一步动作】
 1. tool_bash：用户要求尚未满足，需调用bash工具。
+{
+  "name": "bash",
+  "description": "在 Linux 沙箱中执行一条 bash 命令并返回 stdout/stderr。用于查看文件、运行脚本、处理数据。",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "command": {"type": "string", "description": "要执行的完整 bash 命令"},
+      "timeout": {"type": "integer", "description": "超时秒数，默认 30"}
+    },
+    "required": ["command"]
+  }
+}
 2. tool_read_file：用户要求尚未满足，需调用文件读取工具。
+{
+  "name": "read_file",
+  "description": "读取文件",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "file_path": {"type": "string", "description": "要打开的文件名"},
+      "timeout": {"type": "integer", "description": "超时秒数，默认 30"}
+    },
+    "required": ["file_path"]
+  }
+}
 3. FINISH：用户要求已满足，返回最终回复。
 【输出格式】
 严格输出json格式，包含如下字段：

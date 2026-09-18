@@ -3,6 +3,7 @@
 """
 
 from brain import call_agent_brain
+from tools import *
 
 def main_loop(history, user_input):
     while True:
@@ -11,9 +12,9 @@ def main_loop(history, user_input):
         if action == "FINISH":
             return response
         if action == "tool_bash":
-            observation = call_tool_bash()
+            observation = call_tool_bash(cmd)
         elif action == "tool_read_file":
-            observation = call_tool_read_file()
+            observation = call_tool_read_file(fpath)
         history += [action, observation]
 
 
